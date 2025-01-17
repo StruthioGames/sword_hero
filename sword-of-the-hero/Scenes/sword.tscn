@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://cbeotxfjl5it4"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hqk1e"]
+albedo_color = Color(0.329158, 0.329158, 0.329158, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_i36ho"]
+material = SubResource("StandardMaterial3D_hqk1e")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gssqq"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_0tmcn"]
+
+[node name="Sword" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 1, 0, 0, 0, 0.5, 0, 0.5, 0)
+mesh = SubResource("BoxMesh_i36ho")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/RigidBody3D"]
+shape = SubResource("BoxShape3D_gssqq")
+
+[node name="Hilt" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.75, 0, 0, 0, 0.25, 0, 0, 0, 0.49, 0, 0.33, 0)
+mesh = SubResource("BoxMesh_0tmcn")

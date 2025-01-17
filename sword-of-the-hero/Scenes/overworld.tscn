@@ -1,0 +1,44 @@
+[gd_scene load_steps=8 format=3 uid="uid://c6va1xe2vx6ma"]
+
+[ext_resource type="PackedScene" uid="uid://d00ooi5akytuf" path="res://Scenes/adventurer.tscn" id="1_3brt1"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_mr8mn"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_djfs3"]
+sky_material = SubResource("ProceduralSkyMaterial_mr8mn")
+
+[sub_resource type="Environment" id="Environment_clw6y"]
+background_mode = 2
+sky = SubResource("Sky_djfs3")
+tonemap_mode = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_go4pn"]
+albedo_color = Color(0, 0.203922, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ve1ru"]
+material = SubResource("StandardMaterial3D_go4pn")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_t2uul"]
+
+[node name="Overworld" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 6.06031, -8.31896)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_clw6y")
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+transform = Transform3D(100, 0, 0, 0, 0.5, 0, 0, 0, 100, 0, 0, 0)
+mesh = SubResource("BoxMesh_ve1ru")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
+shape = SubResource("BoxShape3D_t2uul")
+
+[node name="Adventurer" parent="." instance=ExtResource("1_3brt1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)

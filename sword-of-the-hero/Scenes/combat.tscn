@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=3 uid="uid://bvlwqftt5ysul"]
+
+[ext_resource type="Script" path="res://Scripts/combat.gd" id="1_6hp63"]
+[ext_resource type="PackedScene" uid="uid://cbeotxfjl5it4" path="res://Scenes/sword.tscn" id="1_e6bub"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_b3lka"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_x4c0f"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_tcl3l"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_u3rdd"]
+
+[node name="Combat" type="Node3D"]
+script = ExtResource("1_6hp63")
+
+[node name="Sword" parent="." instance=ExtResource("1_e6bub")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.908283, -1.01521)
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+transform = Transform3D(10, 0, 0, 0, 0.5, 0, 0, 0, 10, 0, 0, 0)
+mesh = SubResource("BoxMesh_b3lka")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
+shape = SubResource("BoxShape3D_x4c0f")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, -3)
+mesh = SubResource("CapsuleMesh_tcl3l")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/RigidBody3D"]
+shape = SubResource("CapsuleShape3D_u3rdd")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.58602, 1.63914)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+omni_range = 11.5522
