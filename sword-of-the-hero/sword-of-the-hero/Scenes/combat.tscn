@@ -1,0 +1,63 @@
+[gd_scene load_steps=11 format=3 uid="uid://bvlwqftt5ysul"]
+
+[ext_resource type="Script" path="res://Scripts/combat.gd" id="1_6hp63"]
+[ext_resource type="PackedScene" uid="uid://cbeotxfjl5it4" path="res://Scenes/sword.tscn" id="1_e6bub"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_j73jh"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_83yay"]
+sky_material = SubResource("ProceduralSkyMaterial_j73jh")
+
+[sub_resource type="Environment" id="Environment_ygvjh"]
+background_mode = 2
+sky = SubResource("Sky_83yay")
+tonemap_mode = 2
+
+[sub_resource type="BoxMesh" id="BoxMesh_b3lka"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_x4c0f"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_tcl3l"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_u3rdd"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_xevqd"]
+
+[node name="Combat" type="Node3D"]
+script = ExtResource("1_6hp63")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ygvjh")
+
+[node name="Sword" parent="." instance=ExtResource("1_e6bub")]
+transform = Transform3D(0.0889812, 0, 0.996033, 0, 1, 0, -0.996033, 0, 0.0889812, 0, 0.908283, -0.0800223)
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+transform = Transform3D(10, 0, 0, 0, 0.5, 0, 0, 0, 10, 0, 0, 0)
+mesh = SubResource("BoxMesh_b3lka")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
+shape = SubResource("BoxShape3D_x4c0f")
+
+[node name="Enemy" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, -3)
+mesh = SubResource("CapsuleMesh_tcl3l")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="Enemy"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Enemy/RigidBody3D"]
+shape = SubResource("CapsuleShape3D_u3rdd")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.586, 1.6)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+omni_range = 11.5522
+
+[node name="PlayerBody" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1.5)
+mesh = SubResource("CapsuleMesh_xevqd")
